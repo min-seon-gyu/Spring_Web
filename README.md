@@ -31,10 +31,11 @@ HTTP 메세지에 모든 것을 전송
 - WAS는 애플리케이션 코드를 실행하는데 더 특화
 
 ### 웹 시스템 구성 - WAS, DB
-- WAS, DB만으로 시스템 구성 가능
-- WAS는 정적 리소스, 애플리케이션 로직 모두 제공 가능
 
 ![](https://velog.velcdn.com/images/gcael/post/b7488d13-5a61-435b-a8cf-f07f6cbd58b7/image.PNG)
+
+- WAS, DB만으로 시스템 구성 가능
+- WAS는 정적 리소스, 애플리케이션 로직 모두 제공 가능
 
 단점
 - WAS가 너무 많은 역할을 담당, 서버 과부화 우려
@@ -42,6 +43,9 @@ HTTP 메세지에 모든 것을 전송
 - WAS 장애 시 오류 화면도 출력 불가능
 
 ### 웹 시스템 구성 - WEB, WAS, DB
+
+![](https://velog.velcdn.com/images/gcael/post/8be3a05d-486e-4bf8-96e8-5d57dde00aa2/image.PNG)
+
 - 정적 리소스는 웹 서버가 처리
 - 웹 서버는 애플리케이션 로직같은 동적인 처리가 필요하면 WAS에 요청을 위임
 - WAS는 중요한 애플리케이션 로직 처리 전담
