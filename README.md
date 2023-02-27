@@ -156,15 +156,16 @@ public class HelloServlet extends HttpServlet {
 	}
 }
 ```
-
-- @WebServlet 서블릿 애노테이션
-	- name: 서블릿 이름
-	- urlPatterns: URL 매핑
+@WebServlet 서블릿 애노테이션
+- name: 서블릿 이름
+- urlPatterns: URL 매핑
 	
 HTTP 요청을 통해 매핑된 URL이 호출되면 서블릿 컨테이너는 다음 메서드를 실행한다.
+
 protected void service(HttpServletRequest request, HttpServletResponse response)
 
 HTTP 요청 메시지 로그로 확인하기
+
 application.properties파일에 logging.level.org.apache.coyote.http11=debug를 추가하면 된다.
 
 ## 서블릿, JSP, MVC 패턴
