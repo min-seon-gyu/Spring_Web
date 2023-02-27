@@ -162,11 +162,22 @@ public class HelloServlet extends HttpServlet {
 	
 HTTP 요청을 통해 매핑된 URL이 호출되면 서블릿 컨테이너는 다음 메서드를 실행한다.
 
-protected void service(HttpServletRequest request, HttpServletResponse response)
+	protected void service(HttpServletRequest request, HttpServletResponse response)
 
 HTTP 요청 메시지 로그로 확인하기
 
-application.properties파일에 logging.level.org.apache.coyote.http11=debug를 추가하면 된다.
+	application.properties에 logging.level.org.apache.coyote.http11=debug를 추가하면 된다.
+	
+### 서블릿 컨테이너 동작 방식 설명
+
+#### 내장 톰캣 서버 생성
+![](https://velog.velcdn.com/images/gcael/post/09372ba9-563a-4bbb-b91c-0ba36c7d55c7/image.PNG)
+
+####  애플리케이션 서버의 요청 응답 구조
+![](https://velog.velcdn.com/images/gcael/post/3a958070-45d0-4cf1-8466-e147278adf64/image.PNG)
+
+### HttpServletRequest 역할
+HTTP 요청 메시지를 개발자가 직접 파싱해서 사용해도 되지만, 매우 불편할 것이다. 서블릿은 개발자가 HTTP 요청 메시지를 편리하게 사용할 수 있도록 개발자 대신에 HTTP 요청 메시지를 파싱한다. 그리고 그 결과를 HttpServletRequest 객체에 담아서 제공한다.
 
 ## 서블릿, JSP, MVC 패턴
 
