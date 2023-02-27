@@ -144,7 +144,7 @@ HTTP 요청, 응답 흐름
 서블릿은 톰캣 같은 웹 애플리케이션 서버를 직접 설치하고,그 위에 서블릿 코드를 클래스 파일로 빌드해서 올린 다음, 톰캣 서버를 실행하면 된다. 하지만 이 과정은 매우 번거롭다.
 스프링 부트는 톰캣 서버를 내장하고 있으므로, 톰캣 서버 설치 없이 편리하게 서블릿 코드를 실행할 수 있다.
 
-스프링 부트는 서블릿을 직접 등록해서 사용할 수 있도록 @ServletComponentScan 을 지원한다. 다음과 같이 추가하자.
+스프링 부트는 서블릿을 직접 등록해서 사용할 수 있도록 @ServletComponentScan 을 지원한다.
 
 ```java
 @WebServlet(name = "helloServlet", urlPatterns = "/hello")
@@ -178,6 +178,35 @@ HTTP 요청 메시지 로그로 확인하기
 
 ### HttpServletRequest 역할
 HTTP 요청 메시지를 개발자가 직접 파싱해서 사용해도 되지만, 매우 불편할 것이다. 서블릿은 개발자가 HTTP 요청 메시지를 편리하게 사용할 수 있도록 개발자 대신에 HTTP 요청 메시지를 파싱한다. 그리고 그 결과를 HttpServletRequest 객체에 담아서 제공한다.
+
+#### HTTP 요청 메세지
+```
+POST /save HTTP/1.1
+Host: localhost:8080
+Content-Type: application/x-www-form-urlencoded
+username=kim&age=20
+```
+
+- START LINE
+	- HTTP 메소드
+	- URL
+	- 쿼리 스트링
+	- 스키마, 프로토콜
+- 헤더
+	- 헤더 조회
+- 바디
+	- form 파라미터 형식 조회
+	- message body 데이터 직접 조회
+
+#### HttpServletRequest 부가 기능
+
+임시 저장소 기능
+- 해당 HTTP 요청이 시작부터 끝날 때 까지 유지되는 임시 저장소 기능
+	- 저장: request.setAttribute(name, value)
+	- 조회: request.getAttribute(name)
+
+세션 관리 기능
+- request.getSession(create: true)
 
 ## 서블릿, JSP, MVC 패턴
 
