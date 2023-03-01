@@ -278,6 +278,38 @@ public class RequestBodyStringServlet extends HttpServlet {
 - message body: hello
 - 결과: messageBody = hello
 
+#### HTTP 요청 데이터 - API 메시지 바디 - JSON
+
+```java
+@WebServlet(name = "requestBodyJsonServlet", urlPatterns = "/request-body-json")
+public class RequestBodyJsonServlet extends HttpServlet {
+
+    private ObjectMapper objectMapper = new ObjectMapper();
+
+    @Override
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ServletInputStream inputStream = request.getInputStream();
+        String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
+
+        System.out.println("messageBody = " + messageBody);
+
+        HelloData helloData = objectMapper.readValue(messageBody, HelloData.class);
+
+        System.out.println("helloData.getUsername() = " + helloData.getUsername());
+        System.out.println("helloData.getUsername() = " + helloData.getAge());
+
+        response.getWriter().write("ok");
+    }
+}
+```
+
+> JSON 결과를 파싱해서 사용할 수 있는 자바 객체로 변환하려면 Jackson, Gson 같은 JSON 변환 라이브러리를 추가해서 사용해야 한다. 스프링 부트로 Spring MVC를 선택하면 기본으로 Jackson 라이브러리( ObjectMapper )를 함께 제공한다.
+
+##### JSON 전송
+- POST http://localhost:8080/request-body-json
+- content-type: application/json
+- message body: {"username": "hello", "age": 20}
+- 결과: messageBody = {"username": "hello", "age": 20}
 
 ## 서블릿, JSP, MVC 패턴
 
