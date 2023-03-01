@@ -224,6 +224,12 @@ Map<String, String[]> parameterMap = request.getParameterMap(); //파라미터�
 String[] usernames = request.getParameterValues("username"); //복수 파라미터 조회
 ```
 
+복수 파라미터에서 단일 파라미터 조회
+username=hello&username=kim 과 같이 파라미터 이름은 하나인데, 값이 중복이면 어떻게 될까?
+request.getParameter() 는 하나의 파라미터 이름에 대해서 단 하나의 값만 있을 때 사용해야 한다. 
+지금처럼 중복일 때는 request.getParameterValues() 를 사용해야 한다.
+참고로 이렇게 중복일 때 request.getParameter() 를 사용하면 request.getParameterValues()의 첫 번째 값을 반환한다.
+
 
 ## 서블릿, JSP, MVC 패턴
 
