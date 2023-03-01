@@ -508,7 +508,7 @@ public class MvcMemberSaveServlet extends HttpServlet {
 ```
 request가 제공하는 setAttribute() 를 사용하면 request 객체에 데이터를 보관해서 뷰에 전달할 수 있다. 뷰는 request.getAttribute() 를 사용해서 데이터를 꺼내면 된다.
 
-```java
+```jsp
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
