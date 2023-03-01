@@ -528,6 +528,26 @@ request가 제공하는 setAttribute() 를 사용하면 request 객체에 데이
 ```
 <%= request.getAttribute("member")%> 로 모델에 저장한 member 객체를 꺼낼 수 있지만, 너무 복잡해진다. JSP는 ${} 문법을 제공하는데, 이 문법을 사용하면 request의 attribute에 담긴 데이터를 편리하게 조회할 수 있다.
 
+
+### MVC 패턴 - 한계
+MVC 패턴을 적용한 덕분에 컨트롤러의 역할과 뷰를 렌더링 하는 역할을 명확하게 구분할 수 있다. 특히 뷰는 화면을 그리는 역할에 충실한 덕분에, 코드가 깔끔하고 직관적이다. 단순하게 모델에서 필요한 데이터를 꺼내고, 화면을 만들면 된다. 그런데 컨트롤러는 딱 봐도 중복이 많고, 필요하지 않는 코드들도 많이 보인다.
+
+#### MVC 컨트롤러의 단점
+
+- 포워드 중복
+```java
+RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
+dispatcher.forward(request, response);
+```
+- ViewPath에 중복
+```java
+String viewPath = "/WEB-INF/views/new-form.jsp";
+```
+- 사용하지 않는 코드
+```java
+HttpServletRequest request, HttpServletResponse response
+```
+- 공통 처리가 어렵다.
 ## MVC 프레임워크 만들기
 
 ## 스프링 MVC - 구조 이해
