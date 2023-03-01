@@ -539,7 +539,7 @@ MVC 패턴을 적용한 덕분에 컨트롤러의 역할과 뷰를 렌더링 하
 RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
 dispatcher.forward(request, response);
 ```
-- ViewPath에 중복
+- ViewPath 중복
 ```java
 String viewPath = "/WEB-INF/views/new-form.jsp";
 ```
@@ -548,6 +548,9 @@ String viewPath = "/WEB-INF/views/new-form.jsp";
 HttpServletRequest request, HttpServletResponse response
 ```
 - 공통 처리가 어렵다.
+
+이 문제를 해결하려면 컨트롤러 호출 전에 먼저 공통 기능을 처리해야 한다. 소위 수문장 역할을 하는 기능이 필요하다. 프론트 컨트롤러(Front Controller) 패턴을 도입하면 이런 문제를 깔끔하게 해결할 수 있다. 스프링 MVC의 핵심도 바로 이 프론트 컨트롤러에 있다.
+
 ## MVC 프레임워크 만들기
 
 ## 스프링 MVC - 구조 이해
