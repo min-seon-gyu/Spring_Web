@@ -482,6 +482,7 @@ dispatcher.forward() : 다른 서블릿이나 JSP로 이동할 수 있는 기능
 redirect vs forward
 > 리다이렉트는 실제 클라이언트(웹 브라우저)에 응답이 나갔다가, 클라이언트가 redirect 경로로 다시 요청한다. 따라서 클라이언트가 인지할 수 있고, URL 경로도 실제로 변경된다. 반면에 포워드는 서버 내부에서 일어나는 호출이기 때문에 클라이언트가 전혀 인지하지 못한다.
 
+
 ```java
 @WebServlet(name = "mvcMemberSveServlet", urlPatterns = "/servlet-mvc/members/save")
 public class MvcMemberSaveServlet extends HttpServlet {
@@ -508,23 +509,25 @@ public class MvcMemberSaveServlet extends HttpServlet {
 ```
 request가 제공하는 setAttribute() 를 사용하면 request 객체에 데이터를 보관해서 뷰에 전달할 수 있다. 뷰는 request.getAttribute() 를 사용해서 데이터를 꺼내면 된다.
 
+
 ```jsp
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head>
- <meta charset="UTF-8">
-</head>
-<body>
-성공
-<ul>
- <li>id=${member.id}</li>
- <li>username=${member.username}</li>
- <li>age=${member.age}</li>
-</ul>
-<a href="/index.html">메인</a>
-</body>
+	<head>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+	성공
+	<ul>
+		<li>id=${member.id}</li>
+ 		<li>username=${member.username}</li>
+ 		<li>age=${member.age}</li>
+	</ul>
+	<a href="/index.html">메인</a>
+	</body>
 </html>
 ```
+<%= request.getAttribute("member")%> 로 모델에 저장한 member 객체를 꺼낼 수 있지만, 너무 복잡해진다. JSP는 ${} 문법을 제공하는데, 이 문법을 사용하면 request의 attribute에 담긴 데이터를 편리하게 조회할 수 있다.
 
 ## MVC 프레임워크 만들기
 
