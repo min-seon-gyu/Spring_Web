@@ -517,7 +517,6 @@ request가 제공하는 setAttribute() 를 사용하면 request 객체에 데이
 		<meta charset="UTF-8">
 	</head>
 	<body>
-	성공
 	<ul>
 		<li>id=${member.id}</li>
  		<li>username=${member.username}</li>
