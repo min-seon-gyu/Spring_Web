@@ -219,10 +219,8 @@ username=kim&age=20
 
 ```java
 String username = request.getParameter("username"); //단일 파라미터 조회
-Enumeration<String> parameterNames = request.getParameterNames(); //파라미터 이름들
-모두 조회
-Map<String, String[]> parameterMap = request.getParameterMap(); //파라미터를 Map
-으로 조회
+Enumeration<String> parameterNames = request.getParameterNames(); //파라미터 이름들 모두 조회
+Map<String, String[]> parameterMap = request.getParameterMap(); //파라미터를 Map으로 조회
 String[] usernames = request.getParameterValues("username"); //복수 파라미터 조회
 ```
 
