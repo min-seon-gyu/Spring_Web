@@ -215,7 +215,7 @@ username=kim&age=20
 - POST - HTML Form
 - HTTP message body에 데이터를 직접 담아서 요청
 
-#### HTTP 요청 데이터 - GET 쿼리 파라미터
+### HTTP 요청 데이터 - GET 쿼리 파라미터
 메시지 바디 없이, URL의 쿼리 파라미터를 사용해서 데이터를 전달한다.
 예) 검색, 필터, 페이징등에서 많이 사용하는 방식
 
@@ -232,10 +232,10 @@ request.getParameter() 는 하나의 파라미터 이름에 대해서 단 하나
 지금처럼 중복일 때는 request.getParameterValues() 를 사용해야 한다.
 참고로 이렇게 중복일 때 request.getParameter() 를 사용하면 request.getParameterValues()의 첫 번째 값을 반환한다.
 
-#### HTTP 요청 데이터 - POST - HTML Form
+### HTTP 요청 데이터 - POST - HTML Form
 주로 회원 가입, 상품 주문 등에서 사용하는 방식이다
 
-##### 특징
+#### 특징
 - content-type: application/x-www-form-urlencoded
 - 메시지 바디에 쿼리 파리미터 형식으로 데이터를 전달한다. username=hello&age=20
 - application/x-www-form-urlencoded 형식은 앞서 GET에서 살펴본 쿼리 파라미터 형식과 같다. 따라서 쿼리 파라미터 조회 메서드를 그대로 사용하면 된다.
@@ -248,7 +248,7 @@ request.getParameter() 는 하나의 파라미터 이름에 대해서 단 하나
 때문에 바디에 포함된 데이터가 어떤 형식인지 content-type을 꼭 지정해야 한다. 이렇게 폼으로 데이터를
 전송하는 형식을 application/x-www-form-urlencoded 라 한다.
 
-#### HTTP 요청 데이터 - API 메시지 바디 - 단순 텍스트
+### HTTP 요청 데이터 - API 메시지 바디 - 단순 텍스트
 - HTTP message body에 데이터를 직접 담아서 요청
 - HTTP API에서 주로 사용, JSON, XML, TEXT
 - 데이터 형식은 주로 JSON 사용
@@ -272,13 +272,13 @@ public class RequestBodyStringServlet extends HttpServlet {
 
 > inputStream은 byte 코드를 반환한다. byte 코드를 우리가 읽을 수 있는 문자(String)로 보려면 문자표(Charset)를 지정해주어야 한다. 여기서는 UTF_8 Charset을 지정해주었다.
 
-##### 문자전송
+#### 문자전송
 - POST http://localhost:8080/request-body-string
 - content-type: text/plain
 - message body: hello
 - 결과: messageBody = hello
 
-#### HTTP 요청 데이터 - API 메시지 바디 - JSON
+### HTTP 요청 데이터 - API 메시지 바디 - JSON
 
 ```java
 @WebServlet(name = "requestBodyJsonServlet", urlPatterns = "/request-body-json")
@@ -305,7 +305,7 @@ public class RequestBodyJsonServlet extends HttpServlet {
 
 > JSON 결과를 파싱해서 사용할 수 있는 자바 객체로 변환하려면 Jackson, Gson 같은 JSON 변환 라이브러리를 추가해서 사용해야 한다. 스프링 부트로 Spring MVC를 선택하면 기본으로 Jackson 라이브러리( ObjectMapper )를 함께 제공한다.
 
-##### JSON 전송
+#### JSON 전송
 - POST http://localhost:8080/request-body-json
 - content-type: application/json
 - message body: {"username": "hello", "age": 20}
