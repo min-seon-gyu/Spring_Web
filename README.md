@@ -248,6 +248,37 @@ request.getParameter() 는 하나의 파라미터 이름에 대해서 단 하나
 때문에 바디에 포함된 데이터가 어떤 형식인지 content-type을 꼭 지정해야 한다. 이렇게 폼으로 데이터를
 전송하는 형식을 application/x-www-form-urlencoded 라 한다.
 
+#### HTTP 요청 데이터 - API 메시지 바디 - 단순 텍스트
+- HTTP message body에 데이터를 직접 담아서 요청
+- HTTP API에서 주로 사용, JSON, XML, TEXT
+- 데이터 형식은 주로 JSON 사용
+- POST, PUT, PATCH
+
+```java
+@WebServlet(name = "requestBodyStringServlet", urlPatterns = "/request-body-string")
+public class RequestBodyStringServlet extends HttpServlet {
+
+    @Override
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ServletInputStream inputStream = request.getInputStream();
+        String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
+
+        System.out.println("messageBody = " + messageBody);
+        response.getWriter().write("ok");
+    }
+}
+```
+
+
+> > inputStream은 byte 코드를 반환한다. byte 코드를 우리가 읽을 수 있는 문자(String)로 보려면 문자표(Charset)를 지정해주어야 한다. 여기서는 UTF_8 Charset을 지정해주었다.
+
+##### 문자전송
+- POST http://localhost:8080/request-body-string
+- content-type: text/plain
+- message body: hello
+- 결과: messageBody = hello
+
+
 ## 서블릿, JSP, MVC 패턴
 
 ## MVC 프레임워크 만들기
