@@ -208,6 +208,25 @@ username=kim&age=20
 세션 관리 기능
 - request.getSession(create: true)
 
+### HTTP 요청 데이터 
+- GET - 쿼리 파라미터
+- POST - HTML Form
+- HTTP message body에 데이터를 직접 담아서 요청
+
+#### HTTP 요청 데이터 - GET 쿼리 파라미터
+메시지 바디 없이, URL의 쿼리 파라미터를 사용해서 데이터를 전달한다.
+예) 검색, 필터, 페이징등에서 많이 사용하는 방식
+
+```java
+String username = request.getParameter("username"); //단일 파라미터 조회
+Enumeration<String> parameterNames = request.getParameterNames(); //파라미터 이름들
+모두 조회
+Map<String, String[]> parameterMap = request.getParameterMap(); //파라미터를 Map
+으로 조회
+String[] usernames = request.getParameterValues("username"); //복수 파라미터 조회
+```
+
+
 ## 서블릿, JSP, MVC 패턴
 
 ## MVC 프레임워크 만들기
