@@ -571,6 +571,18 @@ HttpServletRequest request, HttpServletResponse response
 > 스프링 웹 MVC의 핵심도 바로 FrontController
 스프링 웹 MVC의 DispatcherServlet이 FrontController 패턴으로 구현되어 있음
 
+### V1 구조
+![](https://velog.velcdn.com/images/gcael/post/d67207c1-4f9c-4fe8-81c9-c430a072205b/image.PNG)
+
+
+### V2 구조
+![](https://velog.velcdn.com/images/gcael/post/da3a35f6-8941-4c17-a1ad-de4c3122cec5/image.PNG)
+
+
+### V3 구조
+![](https://velog.velcdn.com/images/gcael/post/434da101-0e3e-4b62-9d1d-6665d94a572a/image.PNG)
+
+
 ## 스프링 MVC - 구조 이해
 
 
