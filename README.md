@@ -554,7 +554,22 @@ HttpServletRequest request, HttpServletResponse response
 
 ## MVC 프레임워크 만들기
 
+#### 프론트 컨트롤러 도입 전
+![](https://velog.velcdn.com/images/gcael/post/e27769dd-024e-4444-ba21-193c60e57454/image.PNG)
 
+#### 프론트 컨트롤러 도입 후
+![](https://velog.velcdn.com/images/gcael/post/55218d76-945d-4596-9aeb-ca1ce19bb93f/image.PNG)
+
+### FrontController 패턴 특징
+- 프론트 컨트롤러 서블릿 하나로 클라이언트의 요청을 받음
+- 프론트 컨트롤러가 요청에 맞는 컨트롤러를 찾아서 호출
+- 입구를 하나로!
+- 공통 처리 가능
+- 프론트 컨트롤러를 제외한 나머지 컨트롤러는 서블릿을 사용하지 않아도 됨
+
+### 스프링 웹 MVC와 프론트 컨트롤러
+> 스프링 웹 MVC의 핵심도 바로 FrontController
+스프링 웹 MVC의 DispatcherServlet이 FrontController 패턴으로 구현되어 있음
 
 ## 스프링 MVC - 구조 이해
 
@@ -565,3 +580,7 @@ HttpServletRequest request, HttpServletResponse response
 
 
 ## 스프링 MVC - 웹 페이지 만들기
+
+
+_참고 문서 및 링크_
+- 스프링 MVC 1편 - 백엔드 웹 개발 핵심 기술(김영한)
