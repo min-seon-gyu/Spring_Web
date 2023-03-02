@@ -573,6 +573,7 @@ HttpServletRequest request, HttpServletResponse response
 
 ### V1 구조
 ![](https://velog.velcdn.com/images/gcael/post/d67207c1-4f9c-4fe8-81c9-c430a072205b/image.PNG)
+
 서블릿과 비슷한 모양의 컨트롤러 인터페이스를 도입한다. 각 컨트롤러들은 이 인터페이스를 구현하면된다. 프론트 컨트롤러는 이 인터페이스를 호출해서 구현과 관계없이 로직의 일관성을 가져갈 수 있다.
 
 
