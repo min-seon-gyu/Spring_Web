@@ -573,6 +573,7 @@ HttpServletRequest request, HttpServletResponse response
 
 ### V1 구조
 ![](https://velog.velcdn.com/images/gcael/post/d67207c1-4f9c-4fe8-81c9-c430a072205b/image.PNG)
+서블릿과 비슷한 모양의 컨트롤러 인터페이스를 도입한다. 각 컨트롤러들은 이 인터페이스를 구현하면된다. 프론트 컨트롤러는 이 인터페이스를 호출해서 구현과 관계없이 로직의 일관성을 가져갈 수 있다.
 
 
 ### V2 구조
@@ -582,6 +583,13 @@ HttpServletRequest request, HttpServletResponse response
 ### V3 구조
 ![](https://velog.velcdn.com/images/gcael/post/434da101-0e3e-4b62-9d1d-6665d94a572a/image.PNG)
 
+#### 서블릿 종속성 제거
+컨트롤러 입장에서 HttpServletRequest, HttpServletResponse이 꼭 필요할까? 요청 파라미터 정보는 자바의 Map으로 대신 넘기도록 하면 지금 구조에서는 컨트롤러가 서블릿 기술을
+몰라도 동작할 수 있다. 그리고 request 객체를 Model로 사용하는 대신에 별도의 Model 객체를 만들어서 반환하면 된다.
+
+#### 뷰 이름 중복 제거
+컨트롤러에서 지정하는 뷰 이름에 중복이 있는 것을 확인할 수 있다. 컨트롤러는 뷰의 논리 이름을 반환하고, 실제 물리 위치의 이름은 프론트 컨트롤러에서 처리하도록 단순화
+하자. 이렇게 해두면 향후 뷰의 폴더 위치가 함께 이동해도 프론트 컨트롤러만 고치면 된다. 
 
 ## 스프링 MVC - 구조 이해
 
