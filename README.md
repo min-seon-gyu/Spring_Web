@@ -593,12 +593,12 @@ HttpServletRequest request, HttpServletResponse response
 하자. 이렇게 해두면 향후 뷰의 폴더 위치가 함께 이동해도 프론트 컨트롤러만 고치면 된다. 
 
 ### V4 구조
-![](https://velog.velcdn.com/images/gcael/post/d42e1eaa-107a-44a7-a3d5-6007d07339cb/image.PNG)
+![](https://velog.velcdn.com/images/gcael/post/e6cfb245-088b-4be7-8b4b-36ce9396aff7/image.PNG)
 
 구현 입장에서 ModelView를 직접 생성해서 반환하지 않도록 편리한 인터페이스 제공
 
 ### V5 구조
-![](https://velog.velcdn.com/images/gcael/post/e6cfb245-088b-4be7-8b4b-36ce9396aff7/image.PNG)
+![](https://velog.velcdn.com/images/gcael/post/d42e1eaa-107a-44a7-a3d5-6007d07339cb/image.PNG)
 
 #### 어댑터 패턴
 지금까지 우리가 개발한 프론트 컨트롤러는 한가지 방식의 컨트롤러 인터페이스만 사용할 수 있다. 어댑터 패턴을 사용해서 프론트 컨트롤러가 다양한 방식의 컨트롤러를 처리할 수 있도록 변경해보자.
