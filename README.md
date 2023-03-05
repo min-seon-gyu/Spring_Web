@@ -645,6 +645,38 @@ HttpServletRequest request, HttpServletResponse response
 - 뷰 리졸버: org.springframework.web.servlet.ViewResolver
 - 뷰: org.springframework.web.servlet.View
 
+### 핸들러 매핑과 핸들러 어댑터
+#### HandlerMapping
+- 0 = RequestMappingHandlerMapping : 애노테이션 기반의 컨트롤러인 @RequestMapping에서 사용
+- 1 = BeanNameUrlHandlerMapping : 스프링 빈의 이름으로 핸들러를 찾는다.
+
+#### HandlerAdapter
+- 0 = RequestMappingHandlerAdapter : 애노테이션 기반의 컨트롤러인 @RequestMapping에서 사용
+- 1 = HttpRequestHandlerAdapter : HttpRequestHandler 처리
+- 2 = SimpleControllerHandlerAdapter : Controller 인터페이스(애노테이션X, 과거에 사용) 처리
+
+핸들러 매핑과 핸들러 어댑터 과정
+
+```java
+@Component("/springmvc/old-controller")public class OldController implements Controller {
+	@Override
+	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("OldController.handleRequest");
+		return null;
+	}
+}
+```
+1. 핸들러 매핑으로 핸들러 조회
+1. HandlerMapping 을 순서대로 실행해서, 핸들러를 찾는다.
+2. 이 경우 빈 이름으로 핸들러를 찾아야 하기 때문에 이름 그대로 빈 이름으로 핸들러를 찾아주는
+BeanNameUrlHandlerMapping 가 실행에 성공하고 핸들러인 OldController 를 반환한다.
+2. 핸들러 어댑터 조회
+1. HandlerAdapter 의 supports() 를 순서대로 호출한다.
+2. SimpleControllerHandlerAdapter 가 Controller 인터페이스를 지원하므로 대상이 된다.
+3. 핸들러 어댑터 실행
+1. 디스패처 서블릿이 조회한 SimpleControllerHandlerAdapter 를 실행하면서 핸들러 정보도 함께넘겨준다.
+2. SimpleControllerHandlerAdapter 는 핸들러인 OldController 를 내부에서 실행하고, 그 결과를
+반환한다.
 
 ## 스프링 MVC - 기본기능
 
