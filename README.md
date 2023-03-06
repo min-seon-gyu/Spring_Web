@@ -1,4 +1,4 @@
-# 학습시작기간 2023.02.26
+# 학습시작기간 2023.02.26(완료)
 
 # 목차
 - [웹 애플리케이션 이해](#웹-애플리케이션의-이해)
@@ -6,8 +6,6 @@
 - [서블릿, JSP, MVC 패턴](#서블릿-jsp-mvc-패턴)
 - [MVC 프레임워크 만들기](#MVC-프레임워크-만들기)
 - [스프링 MVC - 구조 이해](#스프링-MVC---구조-이해)
-- [스프링 MVC - 기본 기능](#스프링-MVC---기본기능)
-- [스프링 MVC - 웹 페이지 만들기](#스프링-MVC---웹-페이지-만들기)
 
 ## 웹 애플리케이션의 이해
 웹 - HTTP 기반
@@ -726,12 +724,133 @@ BeanNameUrlHandlerMapping 가 실행에 성공하고 핸들러인 MyHttpRequestH
  > 다른 뷰는 실제 뷰를 렌더링하지만, JSP의 경우 forward() 통해서 해당 JSP로 이동(실행)해야 렌더링이
 된다. JSP를 제외한 나머지 뷰 템플릿들은 forward() 과정 없이 바로 렌더링 된다.
 
-## 스프링 MVC - 기본기능
+### 스프링 MVC - 시작하기
 
+```java
+@Controller
+public class SpringMemberFormControllerV1 {
+ 	@RequestMapping("/springmvc/v1/members/new-form")
+ 	public ModelAndView process() {
+ 		return new ModelAndView("new-form");
+ 	}
+}
+```
+- @Controller : 
+	- 스프링이 자동으로 스프링 빈으로 등록한다. (내부에 @Component 애노테이션이 있어서 컴포넌트 스캔의 대상이 됨)
+	- 스프링 MVC에서 애노테이션 기반 컨트롤러로 인식한다.
+- @RequestMapping : 요청 정보를 매핑한다. 해당 URL이 호출되면 이 메서드가 호출된다. 애노테이션을 기반으로 동작하기 때문에, 메서드의 이름은 임의로 지으면 된다.
+- ModelAndView : 모델과 뷰 정보를 담아서 반환하면 된다.
 
+주의! - 스프링 3.0 이상
+스프링 부트 3.0(스프링 프레임워크 6.0)부터는 클래스 레벨에 @RequestMapping 이 있어도 스프링 컨트롤러로 인식하지 않는다. 오직 @Controller 가 있어야 스프링 컨트롤러로 인식한다.
 
-## 스프링 MVC - 웹 페이지 만들기
+```java
+@Controller
+public class SpringMemberSaveControllerV1 {
+ 	private MemberRepository memberRepository = MemberRepository.getInstance();
+	
+ 	@RequestMapping("/springmvc/v1/members/save")
+ 	public ModelAndView process(HttpServletRequest request, HttpServletResponse response) {
+ 		String username = request.getParameter("username");
+ 		int age = Integer.parseInt(request.getParameter("age"));
+ 		Member member = new Member(username, age);
+ 		memberRepository.save(member);
+		
+ 		ModelAndView mv = new ModelAndView("save-result");
+ 		mv.addObject("member", member); return mv;
+ 	}
+}
+```
+- mv.addObject("member", member)
+	- 스프링이 제공하는 ModelAndView 를 통해 Model 데이터를 추가할 때는 addObject() 를 사용하면 된다. 이 데이터는 이후 뷰를 렌더링 할 때 사용된다.
 
+### 스프링 MVC - 컨트롤러 통합
+```java
+@Controller
+@RequestMapping("/springmvc/v2")
+public class SpringMemberControllerV2 {
 
-_참고 문서 및 링크_
-- 스프링 MVC 1편 - 백엔드 웹 개발 핵심 기술(김영한)
+    private MemberRepository memberRepository = MemberRepository.getInstance();
+
+    @RequestMapping("/members/new-form")
+    public ModelAndView newForm(){
+        return new ModelAndView("new-form");
+    }
+
+    @RequestMapping("/members/save")
+    public ModelAndView save(HttpServletRequest request, HttpServletResponse response){
+        String username = request.getParameter("username");
+        int age = Integer.parseInt(request.getParameter("age"));
+
+        Member member = new Member(username, age);
+        memberRepository.save(member);
+
+        ModelAndView mv = new ModelAndView("save-result");
+        mv.addObject("member", member);
+        return mv;
+    }
+
+    @RequestMapping("/members")
+    public ModelAndView members(){
+        List<Member> members = memberRepository.findAll();
+
+        ModelAndView mv = new ModelAndView("members");
+        mv.addObject("members", members);
+        return mv;
+    }
+}
+```
+
+### 스프링 MVC - 실용적인 방식
+```java
+@Controller
+@RequestMapping("/springmvc/v3")
+public class SpringMemberControllerV3 {
+
+    private MemberRepository memberRepository = MemberRepository.getInstance();
+
+    @GetMapping(value = "/members/new-form")
+    public String newForm(){
+        return "new-form";
+    }
+
+    @PostMapping(value = "/members/save")
+    public String save(
+            @RequestParam("username") String username,
+            @RequestParam("age") int age,
+            Model model){
+
+        Member member = new Member(username, age);
+        memberRepository.save(member);
+
+        model.addAttribute("member", member);
+        return "save-result";
+    }
+
+    @GetMapping(value = "/members")
+    public String members(Model model){
+        List<Member> members = memberRepository.findAll();
+
+        ModelAndView mv = new ModelAndView("members");
+        model.addAttribute("members", members);
+        return "members";
+    }
+}
+```
+
+#### Model 파라미터
+save() , members() 를 보면 Model을 파라미터로 받는 것을 확인할 수 있다. 스프링 MVC도 이런 편의 기능을 제공한다.
+
+#### ViewName 직접 반환
+뷰의 논리 이름을 반환할 수 있다.
+
+#### @RequestParam
+스프링은 HTTP 요청 파라미터를 @RequestParam 으로 받을 수 있다. @RequestParam("username") 은 request.getParameter("username") 와 거의 같은 코드라 생각하면 된다.
+
+#### @RequestMapping @GetMapping, @PostMapping
+@RequestMapping 은 URL만 매칭하는 것이 아니라, HTTP Method도 함께 구분할 수 있다. 예를 들어서 URL이 /new-form 이고, HTTP Method가 GET인 경우를 모두 만족하는 매핑을 하려면
+다음과 같이 처리하면 된다.
+```java
+@RequestMapping(value = "/new-form", method = RequestMethod.GET)
+@GetMapping(value = "/new-form")
+```
