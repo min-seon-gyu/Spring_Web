@@ -854,3 +854,5 @@ save() , members() 를 보면 Model을 파라미터로 받는 것을 확인할 �
 @RequestMapping(value = "/new-form", method = RequestMethod.GET)
 @GetMapping(value = "/new-form")
 ```
+_참고 문서 및 링크_
+- 스프링 MVC 1편 - 백엔드 웹 개발 핵심 기술(김영한)
